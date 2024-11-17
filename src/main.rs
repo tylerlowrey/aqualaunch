@@ -13,6 +13,7 @@ fn main() -> iced::Result {
             decorations: false,
             ..window::Settings::default()
         })
+        .subscription(LauncherApp::subscription)
         .settings(iced::Settings {
             ..iced::Settings::default()
         })

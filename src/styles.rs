@@ -1,7 +1,7 @@
 use iced::{Background, Border, Color, Theme};
 use iced::widget::text_input::{Status, Style};
 
-pub fn borderless_input(_theme: &Theme, _status: Status) -> Style {
+pub fn search_input_style(_theme: &Theme, _status: Status) -> Style {
     Style {
         background: Background::Color(Color::TRANSPARENT),
         border: Border::default().color(Color::TRANSPARENT),
