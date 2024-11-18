@@ -6,3 +6,5 @@ edition = "2021"
 [dependencies]
 iced = {  version = "0.13.1", features = ["image"] }
 log = "0.4.22"
+toml = "0.8.19"
+directories = "5.0.1"

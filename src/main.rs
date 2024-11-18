@@ -4,6 +4,7 @@ use crate::app::LauncherApp;
 
 pub mod app;
 pub mod styles;
+mod config;
 
 fn main() -> iced::Result {
     iced::application("aqualauncher", LauncherApp::update, LauncherApp::view)

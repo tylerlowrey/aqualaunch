@@ -1,9 +1,11 @@
+use std::collections::HashMap;
 use std::process::Command;
 use iced::{event, keyboard, window, Element, Length, Padding, Pixels, Subscription};
 use iced::alignment::Vertical;
 use iced::keyboard::Key;
 use iced::keyboard::key::Named;
 use iced::widget::{row, image, text_input, container};
+use crate::config::load_config_from_home_directory;
 use crate::styles::search_input_style;
 
 pub struct LauncherApp {
@@ -12,7 +14,8 @@ pub struct LauncherApp {
 
 struct LauncherState {
     search_text: String,
-    search_input_id: text_input::Id
+    search_input_id: text_input::Id,
+    commands_to_application_map: toml::Table
 }
 
 #[derive(Debug, Clone)]
@@ -32,10 +35,12 @@ impl Default for LauncherApp {
 impl LauncherApp {
     
     pub fn new() -> Self {
+
         Self {
             state: LauncherState {
                 search_text: String::new(),
                 search_input_id: text_input::Id::new("search_input"),
+                commands_to_application_map: load_config_from_home_directory()
             },
         }
     }
