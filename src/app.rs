@@ -99,10 +99,13 @@ impl LauncherApp {
     pub fn handle_search_submit(&self) -> iced::Task<Message> {
         match self.state.search_text.as_str() {
             "term" => {
-                Command::new("open")
+                let result = Command::new("open")
                     .arg("/Applications/iTerm.app")
-                    .spawn()
-                    .unwrap();
+                    .spawn();
+                if let Err(error) = result {
+                    log::error!("Error while trying to run term command: {:?}", error);
+                }
+
                 iced::exit()
             },
             _ => iced::Task::none(),
