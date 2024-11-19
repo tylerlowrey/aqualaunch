@@ -1,4 +1,3 @@
-use std::collections::HashMap;
 use std::process::Command;
 use iced::{event, keyboard, window, Element, Length, Padding, Pixels, Subscription};
 use iced::alignment::Vertical;
@@ -75,7 +74,7 @@ impl LauncherApp {
 
         row![
             container(
-                image("assets/search_icon.png")
+                image("./assets/search_icon.png")
                     .width(Length::from(Pixels(40.0)))
                     .height(Length::from(Pixels(40.0))),
             ).padding(Padding::from([0.0, 10.0])),
@@ -102,18 +101,19 @@ impl LauncherApp {
     }
 
     pub fn handle_search_submit(&self) -> iced::Task<Message> {
-        match self.state.search_text.as_str() {
-            "term" => {
+        if let Some(application_path_value) = self.state.commands_to_application_map.get(&self.state.search_text) {
+            if let Some(application_path) = application_path_value.as_str() {
                 let result = Command::new("open")
-                    .arg("/Applications/iTerm.app")
+                    .arg(application_path)
                     .spawn();
                 if let Err(error) = result {
                     log::error!("Error while trying to run term command: {:?}", error);
                 }
+            }
 
-                iced::exit()
-            },
-            _ => iced::Task::none(),
+            iced::exit()
+        } else {
+            iced::Task::none()
         }
     }
 }

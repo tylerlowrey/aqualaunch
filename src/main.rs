@@ -7,6 +7,8 @@ pub mod styles;
 mod config;
 
 fn main() -> iced::Result {
+    env_logger::builder().filter_level(log::LevelFilter::Info).init();
+
     iced::application("aqualauncher", LauncherApp::update, LauncherApp::view)
         .window(window::Settings {
             size: Size::new(800.0, 60.0),
