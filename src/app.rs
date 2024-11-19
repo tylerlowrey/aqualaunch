@@ -45,7 +45,9 @@ impl LauncherApp {
     }
 
     pub fn subscription(&self) -> Subscription<Message> {
-        event::listen().map(Message::EventOccurred)
+        event::listen_with(|event, _status, _id| match event {
+            _ => Some(Message::EventOccurred(event))
+        })
     }
 
     pub fn title(&self, window_id: window::Id) -> String {
